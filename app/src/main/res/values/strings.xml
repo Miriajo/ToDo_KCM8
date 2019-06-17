@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Tareas</string>
+
+    <string name="add_task_title">Añadir tarea</string>
+
+    <string name="priorityTrue">Prioritario</string>
+    <string name="priorityFalse">No Prioritario</string>
+
+    <string name="actionToggle">toggle</string>
+    <string name="actionDelete">delete</string>
+    <string name="actionEdit">edit</string>
+
+</resources>
