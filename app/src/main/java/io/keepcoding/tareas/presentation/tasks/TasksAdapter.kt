@@ -1,12 +1,14 @@
 package io.keepcoding.tareas.presentation.tasks
 
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.TextView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.ListAdapter
@@ -19,8 +21,12 @@ import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
 class TasksAdapter(
-    private val onFinished: (task: Task, action: String) -> Unit
+    private val onActionSelected: (task: Task, action: String) -> Unit
 ) : ListAdapter<Task, TasksAdapter.TaskViewHolder>(TaskDiffUtil()) {
+
+
+    lateinit var taskClickListener: OnTaskClickListener
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,7 +38,13 @@ class TasksAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(view: View) = taskClickListener.onItemClick(itemView, getItem(adapterPosition))
 
         fun bind(task: Task) {
             with (itemView) {
@@ -52,7 +64,7 @@ class TasksAdapter(
                 // Fill Date
                 val dateConverted = MyTypeConverters()
                 val date = Date(dateConverted.fromLocalDateTime(task.createdAt))
-                val pretty = PrettyTime(Locale.forLanguageTag("es"))  // Library to set up the date counting the time passed since the creation (f.i.: hace 1 día)
+                val pretty = PrettyTime(Locale.forLanguageTag("en"))  // Library to set up the date counting the time passed since the creation (f.i.: hace 1 día)
                 cardDate.text = pretty.format(date)
 
 
@@ -65,7 +77,7 @@ class TasksAdapter(
                 }
 
                 taskFinishedCheck.setOnClickListener {
-                    onFinished(task, R.string.actionToggle.toString())
+                    onActionSelected(task, R.string.actionToggle.toString())
 
                     if (taskFinishedCheck.isChecked) {
                         applyStrikeThrough(cardContentText, task.content, animate = true)
@@ -76,13 +88,19 @@ class TasksAdapter(
 
                 btnDelete.setOnClickListener {
                    //TODO: remove task
-                   // onDeleted(task, R.string.actionDelete.toString())
+                    onActionSelected(task, R.string.actionDelete.toString())
+
                 }
 
-                btnEdit.setOnClickListener {
-                   // onEdited(task, R.string.actionEdit.toString())
+           /*     btnEdit.setOnClickListener {
+                   // onActionSelected(task, R.string.actionEdit.toString())
+                  /*  val intent = Intent(this, DetailTaskFragment::class.java)
+                    intent.putExtra("idTask", task.id)
+                    startActivity(intent)*/
+                    val fragment = DetailTaskFragment.newInstance(task)
+                    fragment.show(fragmentContainer, null)
                 }
-
+*/
 
             }
         }
@@ -124,6 +142,14 @@ class TasksAdapter(
             }
         }
 
+    }
+
+    interface OnTaskClickListener {
+        fun onItemClick(view: View, task: Task)
+    }
+
+    fun setOnItemClickListener(itemClickListener: OnTaskClickListener) {
+        this.taskClickListener = itemClickListener
     }
 
 }

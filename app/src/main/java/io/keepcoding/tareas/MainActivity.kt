@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
-import io.keepcoding.tareas.presentation.add_task.AddTaskActivity
+import io.keepcoding.tareas.presentation.task.add_task.AddTaskActivity
 import io.keepcoding.tareas.presentation.tasks.TasksFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -38,5 +38,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+/*    override fun onTaskClicked(task: Task) {
+        val intent = DetailTaskActivity.create(this, task.id)
+        startActivity(intent)
+    }
+*/
 
 }

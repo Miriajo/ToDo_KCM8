@@ -64,7 +64,8 @@
                 android:textAppearance="@style/TaskCard.Content.SubTextDark"
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="DD/MM/YYYY"/>
+                android:text="DD/MM/YYYY"
+                app:layout_constraintTop_toTopOf="@+id/cardPriority"/>
 
         <ImageButton
                 android:id="@+id/btnEdit"

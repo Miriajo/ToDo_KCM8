@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
+
+
+    <TextView
+            android:id="@+id/labelPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/priorityLabel"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"/>
+
+
+    <Switch
+            android:id="@+id/taskPriorityCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:switchTextAppearance="@android:color/white"
+            app:layout_constraintStart_toEndOf="@+id/labelPriority"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/labelPriority"
+            app:layout_constraintBottom_toBottomOf="@+id/labelPriority"
+            android:enabled="false"/>
+
+
+    <TextView
+            android:id="@+id/labelFinished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/finishedLabel"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/taskFinishedCheck"/>
+
+    <Switch
+            android:id="@+id/taskFinishedCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:switchTextAppearance="@android:color/white"
+            app:layout_constraintTop_toTopOf="@+id/labelFinished"
+            app:layout_constraintBottom_toBottomOf="@+id/labelFinished"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:enabled="false"/>
+
+
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/taskContent"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/labelPriority"
+            android:layout_marginTop="16dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:enabled="false"/>
+
+
+    <TextView
+            android:id="@+id/labelDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/creationLabel"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toStartOf="@+id/labelPriority"
+            app:layout_constraintTop_toBottomOf="@+id/taskContent" android:layout_marginTop="16dp"/>
+
+
+    <TextView
+            android:id="@+id/taskDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@+id/labelDate"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/labelDate"/>
+
+
+    <Button
+            android:text="@string/saveBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/updateButton"
+            android:background="?colorAccent"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

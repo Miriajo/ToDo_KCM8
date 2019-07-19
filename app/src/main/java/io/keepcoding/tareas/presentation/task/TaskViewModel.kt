@@ -1,7 +1,6 @@
-package io.keepcoding.tareas.presentation.add_task
+package io.keepcoding.tareas.presentation.task
 
 import androidx.lifecycle.MutableLiveData
-import io.keepcoding.tareas.data.repository.local.MyTypeConverters
 import io.keepcoding.tareas.domain.TaskRepository
 import io.keepcoding.tareas.domain.model.Task
 import io.keepcoding.tareas.presentation.BaseViewModel
@@ -11,13 +10,13 @@ import io.keepcoding.util.extensions.call
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.threeten.bp.Instant
-import java.util.*
 
-class AddTaskViewModel(
-    private val taskRepository: TaskRepository,
-    private val dispatcherFactory: DispatcherFactory
+class TaskViewModel(
+private val taskRepository: TaskRepository,
+private val dispatcherFactory: DispatcherFactory
 ) : BaseViewModel(dispatcherFactory) {
 
+    val taskState = MutableLiveData<Task>()
     val closeAction = MutableLiveData<Event<Unit>>()
 
     fun save(content: String, priority: Boolean, date: Instant) {
@@ -33,7 +32,37 @@ class AddTaskViewModel(
         }
     }
 
+    fun loadTaskData(taskId: Long) {
+
+        launch {
+
+            taskState.value = withContext(dispatcherFactory.getIO()) {
+                taskRepository.getTaskById(id = taskId)
+            }
+
+        }
+
+    }
+
+    fun update(id: Long, content: String, priority: Boolean, finished: Boolean, createdAt: Instant) {
+        if (!validateContent(content)) {
+            return
+        }
+
+        launch {
+            withContext(dispatcherFactory.getIO()) {
+                taskRepository.updateTask(Task(id, content, isHighPriority = priority, isFinished = finished, createdAt = createdAt))
+            }
+            closeAction.call()
+        }
+    }
+
     private fun validateContent(content: String): Boolean =
         content.isNotEmpty()
+
+
+
+
+
 
 }

@@ -1,13 +1,19 @@
 <resources>
-    <string name="app_name">Tareas</string>
+    <string name="app_name">ToDo</string>
 
-    <string name="add_task_title">Añadir tarea</string>
+    <string name="add_task_title">Add Task</string>
+    <string name="detail_task_title">Task Detail</string>
 
-    <string name="priorityTrue">Prioritario</string>
-    <string name="priorityFalse">No Prioritario</string>
+    <string name="priorityTrue">Priority</string>
+    <string name="priorityFalse">No Priority</string>
 
     <string name="actionToggle">toggle</string>
     <string name="actionDelete">delete</string>
     <string name="actionEdit">edit</string>
+
+    <string name="priorityLabel">High Priority?</string>
+    <string name="finishedLabel">Finished?</string>
+    <string name="creationLabel">Creation:</string>
+    <string name="saveBtn">SAVE</string>
 
 </resources>
