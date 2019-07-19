@@ -21,6 +21,7 @@
 
         <activity android:name=".presentation.task.add_task.AddTaskActivity"/>
         <activity android:name=".presentation.task.detail_task.DetailTaskActivity"/>
+        <activity android:name=".presentation.task.detail_task.EditTaskActivity"/>
     </application>
 
 </manifest>

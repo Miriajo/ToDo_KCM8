@@ -3,6 +3,7 @@
 
     <string name="add_task_title">Add Task</string>
     <string name="detail_task_title">Task Detail</string>
+    <string name="edit_task_title">Task Edition</string>
 
     <string name="priorityTrue">Priority</string>
     <string name="priorityFalse">No Priority</string>

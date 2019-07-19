@@ -21,17 +21,18 @@ import kotlinx.android.synthetic.main.fragment_edit_task.taskFinishedCheck
 import kotlinx.android.synthetic.main.fragment_edit_task.taskPriorityCheck
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.ocpsoft.prettytime.PrettyTime
+import org.threeten.bp.Instant
 import java.util.*
 
 
-class DetailTaskFragment : Fragment() {
+class EditTaskFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by viewModel()
     var task: Task? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail_task, container, false)
+        return inflater.inflate(R.layout.fragment_edit_task, container, false)
     }
 
 
@@ -44,22 +45,18 @@ class DetailTaskFragment : Fragment() {
         taskViewModel.loadTaskData(id!!)
 
         bindState()
-       // bindActions()
+        //bindActions()
     }
 
 
-    private fun bindActions() {
+    private fun bindActions(task: Task) {
 
-        taskViewModel.taskState.value?.let{ currentTask ->
+        updateButton.setOnClickListener {
+            val taskContent = taskContent.text.toString()
+            val taskPriority = taskPriorityCheck.isChecked
+            val taskFinished = taskFinishedCheck.isChecked
 
-
-            updateButton.setOnClickListener {
-                val taskContent = taskContent.text.toString()
-                val taskPriority = taskPriorityCheck.isChecked
-                val taskFinished = taskFinishedCheck.isChecked
-
-                taskViewModel.update(currentTask, taskContent, taskPriority, taskFinished, currentTask.createdAt)
-            }
+            taskViewModel.update(task, taskContent, taskPriority, taskFinished, Instant.now())
         }
     }
 
@@ -68,15 +65,8 @@ class DetailTaskFragment : Fragment() {
         task?.let { currentTask ->
 
             taskContent.setText(currentTask.content)
-
-            if(currentTask.isHighPriority) {
-                txtPriority.text = "Yes"
-            } else txtPriority.text = "No"
-
-            if(currentTask.isFinished) {
-                txtFinished.text = "Yes"
-            } else txtFinished.text = "No"
-
+            taskPriorityCheck.isChecked = currentTask.isHighPriority
+            taskFinishedCheck.isChecked = currentTask.isFinished
 
             // Fill Date
             val dateConverted = MyTypeConverters()
@@ -94,6 +84,7 @@ class DetailTaskFragment : Fragment() {
         with (taskViewModel) {
             observe(taskState) {
                 loadDetails(it)
+                bindActions(it)
             }
             observe(closeAction) {
                 it.consume {

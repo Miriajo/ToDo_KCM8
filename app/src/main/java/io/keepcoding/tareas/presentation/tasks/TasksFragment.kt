@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.keepcoding.tareas.R
 import io.keepcoding.tareas.domain.model.Task
 import io.keepcoding.tareas.presentation.task.detail_task.DetailTaskActivity
+import io.keepcoding.tareas.presentation.task.detail_task.EditTaskActivity
 import io.keepcoding.util.EqualSpacingItemDecoration
 import io.keepcoding.util.extensions.observe
 import io.keepcoding.util.extensions.setVisible
@@ -27,10 +28,6 @@ class TasksFragment : Fragment() {
                 tasksViewModel.toggleFinished(task)
             else if (action == R.string.actionDelete.toString()) {
                 tasksViewModel.removeSelectedTask(task)
-            } else
-            {
-                tasksViewModel.editSelectedTask(task)
-
             }
         }
     }
@@ -40,9 +37,18 @@ class TasksFragment : Fragment() {
     val tasksViewModel: TasksViewModel by viewModel()
 
 
-    private val onItemClickListener = object : TasksAdapter.OnTaskClickListener {
-        override fun onItemClick(view: View, task: Task) {
+    private val onTaskClickListener = object : TasksAdapter.OnTaskClickListener {
+        override fun onTaskClick(view: View, task: Task) {
             val intent = Intent(view.context, DetailTaskActivity::class.java)
+            intent.putExtra("id", task.id )
+            startActivity(intent)
+        }
+    }
+
+
+    private val onEditClickListener = object : TasksAdapter.OnEditClickListener {
+        override fun onEditClick(view: View, task: Task) {
+            val intent = Intent(view.context, EditTaskActivity::class.java)
             intent.putExtra("id", task.id )
             startActivity(intent)
         }
@@ -57,7 +63,8 @@ class TasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecycler()
         bindState()
-        adapter.setOnItemClickListener(onItemClickListener)
+        adapter.setOnTaskClickListener(onTaskClickListener)
+        adapter.setOnEditClickListener(onEditClickListener)
     }
 
     private fun setUpRecycler() {
@@ -94,6 +101,5 @@ class TasksFragment : Fragment() {
         adapter.submitList(tasks)
     }
 
-    //override val onClickListener: TaskCallback = { (context as? TaskFragmentListener)?.onTaskClicked(it) }
 
 }

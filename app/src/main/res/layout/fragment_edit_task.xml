@@ -92,7 +92,7 @@
             android:text="@string/saveBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/saveButton"
+            android:id="@+id/updateButton"
             android:background="?colorAccent"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"

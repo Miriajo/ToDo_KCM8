@@ -1,14 +1,12 @@
 package io.keepcoding.tareas.presentation.tasks
 
 import android.animation.ValueAnimator
-import android.content.Intent
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.TextView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.ListAdapter
@@ -26,6 +24,7 @@ class TasksAdapter(
 
 
     lateinit var taskClickListener: OnTaskClickListener
+    lateinit var editClickListener: OnEditClickListener
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -44,7 +43,7 @@ class TasksAdapter(
             itemView.setOnClickListener(this)
         }
 
-        override fun onClick(view: View) = taskClickListener.onItemClick(itemView, getItem(adapterPosition))
+        override fun onClick(view: View) = taskClickListener.onTaskClick(itemView, getItem(adapterPosition))
 
         fun bind(task: Task) {
             with (itemView) {
@@ -92,15 +91,10 @@ class TasksAdapter(
 
                 }
 
-           /*     btnEdit.setOnClickListener {
-                   // onActionSelected(task, R.string.actionEdit.toString())
-                  /*  val intent = Intent(this, DetailTaskFragment::class.java)
-                    intent.putExtra("idTask", task.id)
-                    startActivity(intent)*/
-                    val fragment = DetailTaskFragment.newInstance(task)
-                    fragment.show(fragmentContainer, null)
+
+                btnEdit.setOnClickListener{
+                    editClickListener.onEditClick(it, task)
                 }
-*/
 
             }
         }
@@ -145,11 +139,18 @@ class TasksAdapter(
     }
 
     interface OnTaskClickListener {
-        fun onItemClick(view: View, task: Task)
+        fun onTaskClick(view: View, task: Task)
     }
 
-    fun setOnItemClickListener(itemClickListener: OnTaskClickListener) {
+    fun setOnTaskClickListener(itemClickListener: OnTaskClickListener) {
         this.taskClickListener = itemClickListener
     }
 
+    interface OnEditClickListener {
+        fun onEditClick(view: View, task: Task)
+    }
+
+    fun setOnEditClickListener(editClickListener: OnEditClickListener) {
+        this.editClickListener = editClickListener
+    }
 }

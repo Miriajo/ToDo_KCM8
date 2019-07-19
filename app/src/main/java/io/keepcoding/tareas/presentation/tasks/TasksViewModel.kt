@@ -45,12 +45,6 @@ class TasksViewModel(
 
     }
 
-    fun editSelectedTask(task: Task) {
-       // TODO
-          launch(dispatcherFactory.getIO()) {
-            taskRepository.updateTask(task)
-        }
-    }
 
     private fun showLoading(isLoading: Boolean) {
         isLoadingState.value = isLoading

@@ -13,11 +13,24 @@
             android:layout_height="wrap_content"
             android:text="@string/priorityLabel"
             android:textColor="@android:color/white"
-            android:layout_marginTop="16dp" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"/>
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
-    <Switch
+    <TextView
+            android:id="@+id/txtPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@+id/labelPriority"
+            android:layout_marginStart="8dp"
+            app:layout_constraintTop_toTopOf="@+id/labelPriority"
+            app:layout_constraintBottom_toBottomOf="@+id/labelPriority"/>
+
+
+<!--    <Switch
             android:id="@+id/taskPriorityCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +42,7 @@
             app:layout_constraintTop_toTopOf="@+id/labelPriority"
             app:layout_constraintBottom_toBottomOf="@+id/labelPriority"
             android:enabled="false"/>
-
+-->
 
     <TextView
             android:id="@+id/labelFinished"
@@ -40,9 +53,19 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/taskFinishedCheck"/>
+            app:layout_constraintEnd_toStartOf="@+id/txtFinished"/>
 
-    <Switch
+    <TextView
+            android:id="@+id/txtFinished"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toTopOf="@+id/labelFinished"
+            app:layout_constraintBottom_toBottomOf="@+id/labelFinished"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"/>
+
+<!--    <Switch
             android:id="@+id/taskFinishedCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
             android:enabled="false"/>
-
+-->
 
     <EditText
             android:layout_width="0dp"

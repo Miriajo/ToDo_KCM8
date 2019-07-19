@@ -44,14 +44,15 @@ private val dispatcherFactory: DispatcherFactory
 
     }
 
-    fun update(id: Long, content: String, priority: Boolean, finished: Boolean, createdAt: Instant) {
+    fun update(task: Task, content: String, priority: Boolean, finished: Boolean, createdAt: Instant) {
         if (!validateContent(content)) {
             return
         }
 
         launch {
             withContext(dispatcherFactory.getIO()) {
-                taskRepository.updateTask(Task(id, content, isHighPriority = priority, isFinished = finished, createdAt = createdAt))
+                val modifiedData = task.copy(content = content, isHighPriority = priority, isFinished = finished, createdAt = createdAt)
+                taskRepository.updateTask(modifiedData)
             }
             closeAction.call()
         }
